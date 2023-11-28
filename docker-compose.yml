@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+    java_app:
+      container_name: examenes_backend
+      image: sistema-examenes-backend:1.0
+      build: .
+      ports:
+        - 8115:8115
+      environment:
+        - DATABASE_URL=jdbc:postgresql://java_db:5432/postgres
+        - DATABASE_USERNAME=postgres
+        - DATABASE_PASSWORD=postgres
+      depends_on:
+        - java_db
+    java_db:
+      container_name: java_db
+      image: postgres:15
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
